@@ -1,0 +1,5 @@
+splunk_metrics_index:
+  type: string
+  description: Splunk metrics index for Apple MLX metrics.
+  value: "'llm_metrics'"
+  tags: apple,mlx,metrics,index
