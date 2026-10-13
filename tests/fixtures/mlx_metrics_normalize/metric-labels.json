@@ -1,0 +1,12 @@
+[
+  {
+    "sourcetype": "mlx:metrics",
+    "host": "example",
+    "source": "mlx:metrics",
+    "_time": 1781280000,
+    "_metric": "haproxy_frontend_http_responses_total",
+    "_value": "7",
+    "proxy": "llm_wait",
+    "code": "5xx"
+  }
+]
