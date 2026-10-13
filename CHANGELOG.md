@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/compare/v1.0.0...v1.0.1) (2026-10-13)
+
+
+### Bug Fixes
+
+* keep every label as a dimension on named metrics ([#3](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/issues/3)) ([baa0334](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/commit/baa0334d2a90ec727860a864a742a419be1046e2))
+
 ## 1.0.0 (2026-10-13)
 
 
