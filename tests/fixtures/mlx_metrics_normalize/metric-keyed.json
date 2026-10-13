@@ -1,0 +1,11 @@
+[
+  {
+    "sourcetype": "mlx:metrics",
+    "host": "example",
+    "model": "example-model",
+    "source": "mlx:metrics",
+    "_time": 1781280000,
+    "_metric": "mlx.queue_depth",
+    "_value": "2.5"
+  }
+]

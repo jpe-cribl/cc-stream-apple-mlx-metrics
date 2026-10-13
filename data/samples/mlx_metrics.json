@@ -1,0 +1,11 @@
+[
+  {
+    "sourcetype": "mlx:metrics",
+    "host": "example",
+    "model": "example-model",
+    "source": "mlx:metrics",
+    "_time": 1781280000,
+    "node_memory_used_percent": 63.5,
+    "node_cpu_usage_percent": 21.25
+  }
+]

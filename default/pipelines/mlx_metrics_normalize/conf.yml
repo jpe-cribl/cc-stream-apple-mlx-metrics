@@ -1,0 +1,43 @@
+streamtags: []
+groups: {}
+asyncFuncTimeout: 1000
+description: >-
+  Drops non-MLX metric events, stamps the Splunk metrics index, and publishes
+  both named metrics and node-prefixed numeric fields as native metrics.
+functions:
+  - id: drop
+    filter: "sourcetype !== 'mlx:metrics'"
+    disabled: false
+  - id: eval
+    filter: "true"
+    disabled: false
+    conf:
+      add:
+        - name: index
+          value: C.vars.splunk_metrics_index
+  - id: eval
+    filter: "_metric !== undefined"
+    disabled: false
+    conf:
+      add:
+        - name: _value
+          value: "Number.isFinite(Number(_value)) ? Number(_value) : -1"
+  - id: publish_metrics
+    filter: "_metric !== undefined"
+    disabled: false
+    conf:
+      metricNameField: _metric
+      valueField: _value
+      dimensions:
+        - host
+        - model
+  - id: publish_metrics
+    filter: "_metric === undefined"
+    disabled: false
+    conf:
+      dimensions:
+        - host
+        - model
+      fields:
+        - inFieldName: node_*
+          metricType: gauge

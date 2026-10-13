@@ -4,11 +4,13 @@
   "release-type": "node",
   "packages": {
     ".": {
-      "package-name": "cc-edge-pack-template",
+      "package-name": "cc-stream-apple-mlx-metrics",
       "changelog-path": "CHANGELOG.md",
       "extra-files": [
         "package.json"
-      ]
+      ],
+      "draft": true,
+      "force-tag-creation": true
     }
   }
 }

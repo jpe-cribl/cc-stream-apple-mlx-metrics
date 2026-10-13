@@ -1,0 +1,10 @@
+[
+  {
+    "sourcetype": "mlx:metrics",
+    "host": "example",
+    "model": "example-model",
+    "_metric": "mlx.queue_depth",
+    "_value": 2.5,
+    "index": "llm_metrics"
+  }
+]

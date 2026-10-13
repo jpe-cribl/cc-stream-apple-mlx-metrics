@@ -2,19 +2,14 @@ id: default
 groups: {}
 comments: []
 routes:
-  # Demo route. Replace with your real routes when scaffolding a new pack.
-  # Validator rules:
-  #   - id and pipeline must be descriptive (no 'main', no 'route1')
-  #   - filter must be a real expression (not literally 'false' / '0')
-  #   - output MUST be __group (not input_id)
-  - id: passthrough
-    name: Demo Passthrough
+  - id: mlx_metrics
+    name: MLX Metrics
     final: true
     disabled: false
-    pipeline: passthrough
-    description: "Demo route — replace when scaffolding a new pack."
+    pipeline: mlx_metrics_normalize
+    description: Process MLX metrics.
     enableOutputExpression: false
     targetContext: group
-    filter: "datatype=='cribl-demo'"
+    filter: "sourcetype=='mlx:metrics'"
     clones: []
     output: __group

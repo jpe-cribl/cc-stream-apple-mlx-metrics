@@ -1,0 +1,11 @@
+[
+  {
+    "sourcetype": "mlx:metrics",
+    "host": "example",
+    "model": "example-model",
+    "node_memory_used_percent": 63.5,
+    "node_cpu_usage_percent": 21.25,
+    "_value": "leave-unchanged",
+    "index": "llm_metrics"
+  }
+]

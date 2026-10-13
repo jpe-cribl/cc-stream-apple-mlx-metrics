@@ -7,3 +7,9 @@
 #     created: <unix-timestamp-ms>
 #     size: <bytes>
 #     numEvents: <count>
+mlx_metrics:
+  sampleName: mlx_metrics.json
+  description: Example top-level Apple MLX node metrics.
+  created: 1791840000000
+  size: 226
+  numEvents: 1

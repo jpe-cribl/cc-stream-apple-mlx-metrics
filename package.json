@@ -1,18 +1,18 @@
 {
-  "name": "cc-stream-demo-io",
+  "name": "cc-stream-apple-mlx-metrics",
   "version": "0.0.1",
   "minLogStreamVersion": "4.16.0",
-  "author": "dryvist <hello@dryvist.example>",
-  "description": "Demo passthrough pack — replace name/displayName/description/author when scaffolding from this template.",
-  "displayName": "Cribl Stream Demo Pack",
+  "author": "Cribl Stream Pack Maintainers",
+  "description": "Normalizes Apple MLX metrics into native Cribl metrics for Splunk-compatible routing.",
+  "displayName": "Apple MLX Metrics",
   "tags": {
     "streamtags": [
-      "replace",
-      "with",
-      "tags"
+      "apple",
+      "mlx",
+      "metrics"
     ],
     "dataType": [
-      "logs"
+      "metrics"
     ]
   },
   "exports": []
