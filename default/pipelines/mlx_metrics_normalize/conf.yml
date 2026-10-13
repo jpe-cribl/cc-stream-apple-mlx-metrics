@@ -29,8 +29,7 @@ functions:
       metricNameField: _metric
       valueField: _value
       dimensions:
-        - host
-        - model
+        - "*"
   - id: publish_metrics
     filter: "_metric === undefined"
     disabled: false

@@ -35,7 +35,7 @@ it("publishes both supported Apple MLX metric shapes", () => {
   ).toMatchObject({
     metricNameField: "_metric",
     valueField: "_value",
-    dimensions: ["host", "model"],
+    dimensions: ["*"],
   });
   expect(
     publishers.find((fn) => fn.filter === "_metric === undefined")?.conf,
