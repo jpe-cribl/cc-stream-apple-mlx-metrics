@@ -4,7 +4,8 @@ Normalizes Apple MLX metrics into native Cribl metrics for Splunk-compatible rou
 
 ## Pipeline
 
-`mlx_metrics_normalize` drops events whose `sourcetype` is not `mlx:metrics`. It publishes `_metric`/`_value` events and top-level `node_*` fields as gauges, with `host` and `model` dimensions. `_value` is converted to a number only for events that have `_metric`.
+`mlx_metrics_normalize` drops events whose `sourcetype` is not `mlx:metrics`. It publishes `_metric`/`_value` events and top-level `node_*` fields as
+gauges, with `host` and `model` dimensions. `_value` is converted to a number only for events that have `_metric`.
 
 The `splunk_metrics_index` Pack variable sets the Splunk metrics index. Its default is `llm_metrics`.
 
