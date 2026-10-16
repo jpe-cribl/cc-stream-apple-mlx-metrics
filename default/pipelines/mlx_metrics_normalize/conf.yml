@@ -16,7 +16,7 @@ functions:
         - name: _metric
           value: __name__
         - name: host
-          value: "host || instance || 'macmon'"
+          value: "(host || instance || 'macmon').replace(/:\\d+$/, '')"
         - name: source
           value: "'macmon'"
         - name: sourcetype
