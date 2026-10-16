@@ -1,0 +1,19 @@
+[
+  {
+    "sourcetype": "prometheus:metrics",
+    "host": "example.invalid",
+    "source": "macmon",
+    "_metric": "macmon_fan_speed_rpm",
+    "_value": 1200,
+    "fan": "fan0",
+    "index": "llm_metrics"
+  },
+  {
+    "sourcetype": "prometheus:metrics",
+    "host": "example.invalid",
+    "source": "macmon",
+    "_metric": "macmon_cpu_power_watts",
+    "_value": 18.5,
+    "index": "llm_metrics"
+  }
+]

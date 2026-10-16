@@ -1,0 +1,19 @@
+[
+  {
+    "__name__": "macmon_fan_speed_rpm",
+    "_time": 1791840000,
+    "_value": "1200",
+    "chip": "Apple M4 Max",
+    "fan": "fan0",
+    "instance": "example.invalid:9090",
+    "job": "macmon"
+  },
+  {
+    "__name__": "macmon_cpu_power_watts",
+    "_time": 1791840000,
+    "_value": "18.5",
+    "chip": "Apple M4 Max",
+    "instance": "example.invalid:9090",
+    "job": "macmon"
+  }
+]

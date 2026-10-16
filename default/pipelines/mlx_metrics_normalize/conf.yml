@@ -2,12 +2,25 @@ streamtags: []
 groups: {}
 asyncFuncTimeout: 1000
 description: >-
-  Drops non-MLX metric events, stamps the Splunk metrics index, and publishes
-  both named metrics and node-prefixed numeric fields as native metrics.
+  Normalizes MLX and MacMon samples, stamps the Splunk metrics index, and
+  publishes named metrics and node-prefixed numeric fields as native metrics.
 functions:
   - id: drop
-    filter: "sourcetype !== 'mlx:metrics'"
+    filter: "sourcetype !== 'mlx:metrics' && job !== 'macmon'"
     disabled: false
+  - id: eval
+    filter: "job === 'macmon' && __name__ !== undefined"
+    disabled: false
+    conf:
+      add:
+        - name: _metric
+          value: __name__
+        - name: host
+          value: "(host || instance || 'macmon').replace(/:\\d+$/, '')"
+        - name: source
+          value: "'macmon'"
+        - name: sourcetype
+          value: "'prometheus:metrics'"
   - id: eval
     filter: "true"
     disabled: false

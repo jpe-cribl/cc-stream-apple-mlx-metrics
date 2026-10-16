@@ -13,3 +13,14 @@ routes:
     filter: "sourcetype=='mlx:metrics'"
     clones: []
     output: __group
+  - id: macmon_metrics
+    name: MacMon Metrics
+    final: true
+    disabled: false
+    pipeline: mlx_metrics_normalize
+    description: Process MacMon Prometheus metrics.
+    enableOutputExpression: false
+    targetContext: group
+    filter: "job=='macmon'"
+    clones: []
+    output: __group
