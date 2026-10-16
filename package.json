@@ -1,6 +1,6 @@
 {
   "name": "cc-stream-apple-mlx-metrics",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "minLogStreamVersion": "4.16.0",
   "author": "Cribl Stream Pack Maintainers",
   "description": "Normalizes Apple MLX serving and MacMon Prometheus metrics into native Cribl metrics for Splunk-compatible routing.",

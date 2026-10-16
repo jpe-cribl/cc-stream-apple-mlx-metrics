@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/compare/v1.0.1...v1.1.0) (2026-10-16)
+
+
+### Features
+
+* normalize MacMon Prometheus metrics ([#5](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/issues/5)) ([1288e4f](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/commit/1288e4fe64023bc9109741b4589558c52f29d6a8))
+
 ## [1.0.1](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/compare/v1.0.0...v1.0.1) (2026-10-13)
 
 
