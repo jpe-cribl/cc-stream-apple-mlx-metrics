@@ -73,8 +73,7 @@ when a release PR merges).
 | File | Trigger | Calls |
 | --- | --- | --- |
 | `workflows/test.yml` | PR + push to main (paths-filtered) | `cribl-pack-test.yml` (this repo) |
-| `workflows/release.yml` | semver tag push (`vX.Y.Z`, plus `-RCn`/`-TCn` prereleases) | `cribl-pack-release.yml` (this repo) |
-| `workflows/release-please.yml` | push to main | `_release-please.yml` (inherited from `dryvist/.github`) |
+| `workflows/release.yml` | push to main; pull requests | `_release.yml`, then `cribl-pack-release.yml` before publishing |
 
 ## Updating reusable workflow inputs
 
@@ -85,7 +84,7 @@ absolutely cannot.
 
 ## Pinning external actions
 
-Per [`SECURITY.md`](https://github.com/dryvist/.github/blob/main/SECURITY.md):
+Per [`SECURITY.md`](https://github.com/JacobPEvans/.github/blob/main/SECURITY.md):
 
 - Trusted (`actions/*`, `pnpm/action-setup`, `softprops/action-gh-release`):
   semver tag pins (`@v4`, etc.)
