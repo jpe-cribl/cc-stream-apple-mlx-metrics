@@ -36,47 +36,19 @@ test specific upstream Cribl releases).
 
 ## Reusable workflows
 
-### `cribl-pack-test.yml`
-
-Validates pack structure + runs the TypeScript Vitest suite against one
-`cribl/cribl` service container per entry in the `cribl_versions` matrix.
-
-- `pack_type` (required): `edge` or `stream`; selects the validator naming
-  convention and required-field checks.
-- `cribl_versions` (optional): defaults to `latest` and the last patches for
-  N-1 and N-2. Supply JSON `{version, required}` entries, one per matrix leg.
-  Set `required: false` for a best-effort leg.
-- `node_version` (optional): defaults to `lts/*`; sets the Node.js version.
-- `yq_version` (optional): defaults to `4.44.5`; pins the `mikefarah/yq`
-  version.
-
-Jobs:
-
-1. **validate** — installs `yq` (pinned via `dcarbone/install-yq-action`),
-   lints YAML (`frenck/action-yamllint`, config from `.yamllint.yml`), runs
-   `scripts/validate-pack-structure.sh`.
-2. **test** (matrix) — per Cribl version: sets up Node + pnpm (cached),
-   installs deps, runs Biome lint, typechecks, waits for Cribl health
-   endpoint (`iFaxity/wait-on-action`), runs `pnpm run test`. Each leg posts
-   its own status check (`Test pack pipelines (Cribl <version>)`).
-
-### `cribl-pack-release.yml`
-
-Builds a `.crbl` tarball via `scripts/build-crbl.sh` and publishes it to
-GitHub Releases (`softprops/action-gh-release`).
-
-- `additional_files` (optional): defaults to `''`; lists space-separated extra
-  files for the tarball. `LICENSE` is added if present.
-
-Triggered by tag push in the calling workflow (typically by release-please
-when a release PR merges).
+The pack test and release workflows are reusable workflows hosted in
+[`dryvist/cc-edge-pack-template`](https://github.com/dryvist/cc-edge-pack-template)
+(`cribl-pack-test.yml`, `cribl-pack-release.yml`); their inputs and jobs
+are documented there.
 
 ## Caller workflows in this repo
 
 - `workflows/test.yml` — PRs and paths-filtered pushes to `main`; calls
-  `cribl-pack-test.yml` in this repo.
+  `cribl-pack-test.yml` from
+  `dryvist/cc-edge-pack-template`.
 - `workflows/release.yml` — pushes to `main` and pull requests; calls
-  `_release.yml`, then `cribl-pack-release.yml` before publishing.
+  `_release.yml`, then `cribl-pack-release.yml` from
+  `dryvist/cc-edge-pack-template` before publishing.
 
 ## Updating reusable workflow inputs
 
