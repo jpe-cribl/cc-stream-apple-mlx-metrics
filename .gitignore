@@ -11,6 +11,7 @@ node_modules/
 **/node_modules/
 dist/
 *.tsbuildinfo
+.gh-shared/
 
 # Nix / direnv
 .direnv/
