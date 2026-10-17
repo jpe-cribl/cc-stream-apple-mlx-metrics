@@ -1,54 +1,49 @@
-# `.github/` — workflows for this template
+# `.github/` — workflows for this pack
 
-Reusable workflows are called from any dryvist Cribl pack with a `uses:` ref:
-`dryvist/cc-edge-pack-template/.github/workflows/<file>@<sha>`.
-Pins use a 40-hex commit and a version comment such as `# vX.Y.Z`.
+This repository calls pinned reusable workflows from `jpe-cribl/.github`.
+Pins use a 40-hex commit and a comment such as `# main`.
 
-Caller workflows in this repo (`test.yml`, `release.yml`, `release-please.yml`)
-wire them up to GitHub events.
+Caller workflows in this repo (`test.yml`, `release.yml`, `release-please.yml`,
+and `e2e.yml`) wire them up to GitHub events.
 
 ## Installation
 
-These workflows install themselves implicitly when a new pack scaffolds from
-`dryvist/cc-edge-pack-template` (`gh repo create --template`). The caller
-workflows under `.github/workflows/` are copied verbatim; the reusable
-workflows they reference resolve at runtime against
-`dryvist/cc-edge-pack-template/.github/workflows/<file>@<40-hex-sha> # vX.Y.Z`.
-
-If you're adding a workflow to a non-template repo manually, copy the relevant
-caller from this directory into your repo's `.github/workflows/` and adjust
-the `uses:` ref to pin a different template release. First-party reusable
-workflows use `@<40-hex-sha>` with a `# vX.Y.Z` version comment.
+The caller workflows in this repository reference shared workflows from
+`jpe-cribl/.github`. The shared test workflow checks the shared scripts out to
+`.gh-shared` for both its validate and test jobs. The shared release workflow
+uses those scripts from its own checkout.
 
 ## Usage
 
-Once installed, the workflows trigger automatically:
+The workflows trigger automatically:
 
 - Open a PR touching `default/`, `data/samples/`, `tests/`, `scripts/`, or
   `package.json` → `test.yml` runs validate + Vitest.
 - Push to `main` → `release-please.yml` opens or updates the release PR.
 - Merge a release PR → release-please tags the version, which triggers
   `release.yml` → builds the `.crbl` and publishes to GitHub Releases.
+- Manually dispatch `e2e.yml` or open a PR touching `e2e/**` → the shared E2E
+  workflow runs the scenario.
 
 No manual invocation is needed. Override defaults by editing the caller
 workflow's `with:` block (e.g., pass a custom `cribl_versions` JSON array to
 test specific upstream Cribl releases).
 
-## Reusable workflows
+## Shared workflows
 
-The pack test and release workflows are reusable workflows hosted in
-[`dryvist/cc-edge-pack-template`](https://github.com/dryvist/cc-edge-pack-template)
-(`cribl-pack-test.yml`, `cribl-pack-release.yml`); their inputs and jobs
-are documented there.
+The pack test, release, and E2E workflows are hosted in
+[`jpe-cribl/.github`](https://github.com/jpe-cribl/.github). Their inputs and
+jobs are documented there.
 
 ## Caller workflows in this repo
 
-- `workflows/test.yml` — PRs and paths-filtered pushes to `main`; calls
-  `cribl-pack-test.yml` from
-  `dryvist/cc-edge-pack-template`.
+- `workflows/test.yml` — PRs and paths-filtered pushes to `main`; calls the
+  shared `cribl-pack-test.yml` workflow.
 - `workflows/release.yml` — pushes to `main` and pull requests; calls
-  `_release.yml`, then `cribl-pack-release.yml` from
-  `dryvist/cc-edge-pack-template` before publishing.
+  `_release.yml`, then the shared `cribl-pack-release.yml` workflow before
+  publishing.
+- `workflows/e2e.yml` — manual dispatch and E2E-related pull requests; calls
+  the shared `cribl-pack-e2e.yml` workflow.
 
 ## Updating reusable workflow inputs
 

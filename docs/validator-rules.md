@@ -1,11 +1,11 @@
-# Validator rules (vct-cribl-pack-validator)
+# Validator rules
 
-Non-negotiable rules per the [validator skill](https://github.com/VisiCore/vct-cribl-pack-validator).
-The CI `validate` job and `scripts/validate-pack-structure.sh` enforce the
-machine-checkable subset; the rest are conventions to follow.
+The shared CI `validate` job runs the validator from `jpe-cribl/.github`
+`scripts/` (checked out to `.gh-shared` in CI) for the machine-checkable
+subset; the rest are conventions to follow.
 
 | Rule | What it means | Enforced by |
-|---|---|---|
+| --- | --- | --- |
 | Pack ID format | `cc-edge-<source>-io` for Edge, `cc-stream-<source>-io` for Stream | CI (warning) |
 | No pipeline named `main` | All pipelines must have descriptive names | `routes.test.ts` |
 | All routes use `output: __group` | Never `input_id` (breaks on source rename) | `routes.test.ts` + CI (warning) |
@@ -19,9 +19,7 @@ machine-checkable subset; the rest are conventions to follow.
 
 ```sh
 make build      # produces <pack-name>-<version>.crbl
-# Then from the validator repo:
-cd ~/git/vct-cribl-pack-validator/main
-claude /validate-pack /path/to/<pack-name>-<version>.crbl
+claude /validate-pack <path-to-pack.crbl>
 ```
 
 `make validate` prints the exact command after building.
