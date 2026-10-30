@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/compare/v1.1.1...v1.1.2) (2026-10-30)
+
+
+### Bug Fixes
+
+* disable the default route so unmatched events are dropped ([#27](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/issues/27)) ([7e36974](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/commit/7e36974e5daef40eeae3cbe4b2d9428531113d82))
+
 ## [1.1.1](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/compare/v1.1.0...v1.1.1) (2026-10-30)
 
 
