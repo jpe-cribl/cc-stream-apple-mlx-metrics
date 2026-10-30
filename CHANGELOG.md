@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/compare/v1.1.0...v1.1.1) (2026-10-30)
+
+
+### Bug Fixes
+
+* drop events no route of the pack consumed ([#25](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/issues/25)) ([4155fc1](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/commit/4155fc1bc90616334bc454c7a28800d37eaf8c49))
+
 ## [1.1.0](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/compare/v1.0.1...v1.1.0) (2026-10-16)
 
 
