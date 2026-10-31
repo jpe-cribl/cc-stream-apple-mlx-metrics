@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/compare/v1.1.2...v1.1.3) (2026-10-31)
+
+
+### Bug Fixes
+
+* publish listed host metrics and aggregate per-process samples ([#29](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/issues/29)) ([087262e](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/commit/087262ecedcf51528759a34d60d546fc476de560))
+
 ## [1.1.2](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/compare/v1.1.1...v1.1.2) (2026-10-30)
 
 
