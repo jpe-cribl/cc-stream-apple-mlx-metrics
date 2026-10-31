@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.4](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/compare/v1.1.3...v1.1.4) (2026-10-31)
+
+
+### Bug Fixes
+
+* stamp source and time on aggregated process metrics ([#31](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/issues/31)) ([410288d](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/commit/410288dc5e0b367a0a97324c151bb9a31dd5b0de))
+
 ## [1.1.3](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/compare/v1.1.2...v1.1.3) (2026-10-31)
 
 
