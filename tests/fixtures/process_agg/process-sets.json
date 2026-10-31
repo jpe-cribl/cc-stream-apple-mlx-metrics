@@ -1,0 +1,14 @@
+[
+  {
+    "sourcetype": "mlx:metrics",
+    "host": "example",
+    "source": "mlx:metrics",
+    "_time": 1781280000,
+    "_metric": "judge_process_start_time_seconds",
+    "_value": 1781200000,
+    "process_set": "example-set",
+    "process_resident_memory_bytes": 168427520,
+    "process_num_threads": 26,
+    "process_cpu_usage": 2
+  }
+]

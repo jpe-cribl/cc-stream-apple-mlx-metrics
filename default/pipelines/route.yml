@@ -2,6 +2,17 @@ id: default
 groups: {}
 comments: []
 routes:
+  - id: process_sets
+    name: Process Sets
+    final: true
+    disabled: false
+    pipeline: process_agg
+    description: Aggregate per-process samples into native metrics.
+    enableOutputExpression: false
+    targetContext: group
+    filter: "_metric=='judge_process_start_time_seconds'"
+    clones: []
+    output: __group
   - id: mlx_metrics
     name: MLX Metrics
     final: true
