@@ -10,6 +10,7 @@
     "process_resident_memory_bytes": 168427520,
     "process_num_threads": 26,
     "process_cpu_usage": 2,
+    "source": "mlx:metrics",
     "index": "llm_metrics"
   }
 ]

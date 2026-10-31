@@ -24,5 +24,9 @@ functions:
     disabled: false
     conf:
       add:
+        - name: source
+          value: "'mlx:metrics'"
+        - name: _time
+          value: "_time || Date.now() / 1000"
         - name: index
           value: C.vars.splunk_metrics_index
