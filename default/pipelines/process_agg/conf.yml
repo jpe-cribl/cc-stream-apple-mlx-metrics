@@ -1,0 +1,28 @@
+streamtags: []
+groups: {}
+asyncFuncTimeout: 1000
+description: >-
+  Aggregates per-process samples by host and process set over 10 s windows
+  and emits resident memory, thread count and CPU usage as native metrics.
+functions:
+  - id: aggregation
+    filter: "true"
+    disabled: false
+    conf:
+      metricsMode: true
+      aggregations:
+        - "sum(process_resident_memory_bytes).as(process_resident_memory_bytes)"
+        - "sum(process_num_threads).as(process_num_threads)"
+        - "sum(process_cpu_usage).as(process_cpu_usage)"
+      groupbys:
+        - host
+        - process_set
+      timeWindow: 10s
+      cumulative: false
+  - id: eval
+    filter: "true"
+    disabled: false
+    conf:
+      add:
+        - name: index
+          value: C.vars.splunk_metrics_index

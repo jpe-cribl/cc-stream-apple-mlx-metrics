@@ -1,0 +1,15 @@
+[
+  {
+    "__dropped": true,
+    "host": "example",
+    "process_set": "example-set"
+  },
+  {
+    "host": "example",
+    "process_set": "example-set",
+    "process_resident_memory_bytes": 168427520,
+    "process_num_threads": 26,
+    "process_cpu_usage": 2,
+    "index": "llm_metrics"
+  }
+]

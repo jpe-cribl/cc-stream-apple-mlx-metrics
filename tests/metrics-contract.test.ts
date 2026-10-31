@@ -40,7 +40,37 @@ it("publishes both supported Apple MLX metric shapes", () => {
   expect(
     publishers.find((fn) => fn.filter === "_metric === undefined")?.conf,
   ).toMatchObject({
-    dimensions: ["host", "model"],
-    fields: [{ inFieldName: "node_*", metricType: "gauge" }],
+    dimensions: ["host"],
+    fields: [
+      "node_load1",
+      "node_load5",
+      "node_load15",
+      "node_memory_used_bytes",
+      "node_memory_used_percent",
+      "node_memory_swap_used_bytes",
+      "node_cpu_percent_active_all",
+    ].map((inFieldName) => ({ inFieldName, metricType: "gauge" })),
   });
+});
+
+it("aggregates per-process samples into native metrics by process set", () => {
+  const pipeline = yamlParse(
+    readFileSync(
+      join(PACK_ROOT, "default", "pipelines", "process_agg", "conf.yml"),
+      "utf8",
+    ),
+  ) as Pipeline;
+  const aggregation = (pipeline.functions ?? []).find(
+    (fn) => fn.id === "aggregation",
+  );
+  expect(aggregation?.conf).toMatchObject({
+    metricsMode: true,
+    groupbys: ["host", "process_set"],
+    cumulative: false,
+  });
+  expect(aggregation?.conf?.aggregations).toEqual([
+    "sum(process_resident_memory_bytes).as(process_resident_memory_bytes)",
+    "sum(process_num_threads).as(process_num_threads)",
+    "sum(process_cpu_usage).as(process_cpu_usage)",
+  ]);
 });

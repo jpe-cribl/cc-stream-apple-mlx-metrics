@@ -3,7 +3,7 @@ groups: {}
 asyncFuncTimeout: 1000
 description: >-
   Normalizes MLX and MacMon samples, stamps the Splunk metrics index, and
-  publishes named metrics and node-prefixed numeric fields as native metrics.
+  publishes named metrics and the listed node host fields as native metrics.
 functions:
   - id: drop
     filter: "sourcetype !== 'mlx:metrics' && job !== 'macmon'"
@@ -49,7 +49,18 @@ functions:
     conf:
       dimensions:
         - host
-        - model
       fields:
-        - inFieldName: node_*
+        - inFieldName: node_load1
+          metricType: gauge
+        - inFieldName: node_load5
+          metricType: gauge
+        - inFieldName: node_load15
+          metricType: gauge
+        - inFieldName: node_memory_used_bytes
+          metricType: gauge
+        - inFieldName: node_memory_used_percent
+          metricType: gauge
+        - inFieldName: node_memory_swap_used_bytes
+          metricType: gauge
+        - inFieldName: node_cpu_percent_active_all
           metricType: gauge
