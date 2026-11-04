@@ -30,7 +30,8 @@ functions:
           value: C.vars.splunk_metrics_index
   # A non-finite value (a Prometheus staleness marker) is no sample, so drop it.
   - id: drop
-    filter: "_metric !== undefined && !Number.isFinite(Number(_value))"
+    # Comparison only: NaN and +/-Infinity all fail `< Infinity`.
+    filter: "_metric !== undefined && !(Math.abs(Number(_value)) < Infinity)"
     disabled: false
   - id: eval
     filter: "_metric !== undefined"
