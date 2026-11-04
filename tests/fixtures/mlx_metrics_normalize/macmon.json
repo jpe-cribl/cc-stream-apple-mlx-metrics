@@ -15,13 +15,5 @@
     "chip": "Apple M4 Max",
     "instance": "example.invalid:9090",
     "job": "macmon"
-  },
-  {
-    "__name__": "macmon_gpu_active_ratio",
-    "_time": 1791840000,
-    "_value": "NaN",
-    "chip": "Apple M4 Max",
-    "instance": "example.invalid:9090",
-    "job": "macmon"
   }
 ]

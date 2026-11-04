@@ -42,3 +42,45 @@ it("drops events with a non-MLX sourcetype", async () => {
     await client.deleteSample(sampleId);
   }
 });
+
+it("drops a MacMon sample whose value is not a finite number", async () => {
+  const client = makeClient();
+  const sampleId = await client.saveSample("macmon-non-finite", [
+    {
+      __name__: "macmon_gpu_active_ratio",
+      _time: 1791840000,
+      _value: "NaN",
+      chip: "Apple M4 Max",
+      instance: "example.invalid:9090",
+      job: "macmon",
+    },
+  ]);
+
+  try {
+    const preview = await client.call("post", "/preview", {
+      pack: getInstalledPackId(),
+      payload: {
+        mode: "pipe",
+        pipelineId: "mlx_metrics_normalize",
+        level: 3,
+        sampleId,
+        dropped: false,
+        cpuProfile: false,
+        timeout: 10_000,
+        memory: 2048,
+      },
+    });
+    const events =
+      preview !== null &&
+      typeof preview === "object" &&
+      "items" in preview &&
+      Array.isArray((preview as { items: unknown }).items)
+        ? (preview as { items: unknown[] }).items
+        : Array.isArray(preview)
+          ? preview
+          : [];
+    expect(events).toHaveLength(0);
+  } finally {
+    await client.deleteSample(sampleId);
+  }
+});
