@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.6](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/compare/v1.1.5...v1.1.6) (2026-11-04)
+
+
+### Bug Fixes
+
+* drop non-finite metric samples with a comparison filter ([#36](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/issues/36)) ([eb7754c](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/commit/eb7754c5e1b20dd57a14c1e015ee48095874bdc2))
+
 ## [1.1.5](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/compare/v1.1.4...v1.1.5) (2026-11-02)
 
 
