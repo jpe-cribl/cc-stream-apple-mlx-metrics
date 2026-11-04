@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.7](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/compare/v1.1.6...v1.1.7) (2026-11-04)
+
+
+### Bug Fixes
+
+* restore the finite-number drop filter on MacMon samples ([#39](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/issues/39)) ([f53ccd5](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/commit/f53ccd54b63032b16e4ad23244e31e7bb0ed2c60))
+
 ## [1.1.6](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/compare/v1.1.5...v1.1.6) (2026-11-04)
 
 
