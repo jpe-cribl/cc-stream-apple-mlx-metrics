@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.8](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/compare/v1.1.7...v1.1.8) (2026-11-10)
+
+
+### Bug Fixes
+
+* replace private names with role words ([#48](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/issues/48)) ([bbf49d2](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/commit/bbf49d2ae15d573902365481533e800b9905d47a))
+
 ## [1.1.7](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/compare/v1.1.6...v1.1.7) (2026-11-04)
 
 
