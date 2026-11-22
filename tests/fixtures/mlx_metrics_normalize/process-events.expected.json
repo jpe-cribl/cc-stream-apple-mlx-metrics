@@ -1,0 +1,26 @@
+[
+  {
+    "sourcetype": "mlx:metrics",
+    "host": "example",
+    "process_set": "judge",
+    "process_pid": "4242",
+    "process_cmdline": "python -m judge --port 8081",
+    "process_exe_path": "/usr/bin/python3",
+    "telemetry_role": "edge",
+    "_metric": "judge_process_phys_footprint_bytes",
+    "_value": 1200000000,
+    "index": "llm_metrics"
+  },
+  {
+    "sourcetype": "mlx:metrics",
+    "host": "example",
+    "process_set": "judge",
+    "process_pid": "4242",
+    "process_cmdline": "python -m judge --port 8081",
+    "process_exe_path": "/usr/bin/python3",
+    "telemetry_role": "edge",
+    "_metric": "judge_process_resident_memory_bytes",
+    "_value": 900000000,
+    "index": "llm_metrics"
+  }
+]

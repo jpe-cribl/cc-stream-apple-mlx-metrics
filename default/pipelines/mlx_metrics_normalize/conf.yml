@@ -39,8 +39,24 @@ functions:
       add:
         - name: _value
           value: Number(_value)
+  # Process samples repeat every numeric process_* field on each event; the field
+  # named by _metric/_value is the sample, so only identifying fields are dimensions.
   - id: publish_metrics
-    filter: "_metric !== undefined"
+    filter: "_metric !== undefined && process_set !== undefined"
+    disabled: false
+    conf:
+      metricNameField: _metric
+      valueField: _value
+      dimensions:
+        - host
+        - model
+        - process_set
+        - process_pid
+        - process_cmdline
+        - process_exe_path
+        - telemetry_role
+  - id: publish_metrics
+    filter: "_metric !== undefined && process_set === undefined"
     disabled: false
     conf:
       metricNameField: _metric

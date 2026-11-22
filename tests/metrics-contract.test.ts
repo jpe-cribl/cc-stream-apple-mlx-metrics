@@ -29,13 +29,36 @@ it("publishes both supported Apple MLX metric shapes", () => {
     (fn) => fn.id === "publish_metrics",
   );
 
-  expect(publishers).toHaveLength(2);
+  expect(publishers).toHaveLength(3);
   expect(
-    publishers.find((fn) => fn.filter === "_metric !== undefined")?.conf,
+    publishers.find(
+      (fn) =>
+        fn.filter === "_metric !== undefined && process_set === undefined",
+    )?.conf,
   ).toMatchObject({
     metricNameField: "_metric",
     valueField: "_value",
     dimensions: ["*"],
+  });
+  // Process samples repeat their numeric process_* fields on every event, so
+  // only these identifying fields may be dimensions.
+  expect(
+    publishers.find(
+      (fn) =>
+        fn.filter === "_metric !== undefined && process_set !== undefined",
+    )?.conf,
+  ).toMatchObject({
+    metricNameField: "_metric",
+    valueField: "_value",
+    dimensions: [
+      "host",
+      "model",
+      "process_set",
+      "process_pid",
+      "process_cmdline",
+      "process_exe_path",
+      "telemetry_role",
+    ],
   });
   expect(
     publishers.find((fn) => fn.filter === "_metric === undefined")?.conf,
