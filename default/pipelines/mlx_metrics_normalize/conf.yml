@@ -39,8 +39,44 @@ functions:
       add:
         - name: _value
           value: Number(_value)
+  # Judge per-process samples keep their judge_process_* names: process_agg is
+  # the only owner of the judge group, so renaming them would collide with it.
+  - id: eval
+    filter: "_metric !== undefined && process_set !== undefined && process_set !== 'judge'"
+    disabled: false
+    conf:
+      add:
+        - name: _metric
+          value: >-
+            _metric.replace(/^.*?_(?=process_)/, '')
+  # Process samples take a model label from the --model argument. A Hugging Face
+  # cache snapshot path becomes <org>/<repo>; a process without --model is "unknown".
+  - id: eval
+    filter: "_metric !== undefined && process_set !== undefined"
+    disabled: false
+    conf:
+      add:
+        - name: model
+          value: >-
+            ((/--model\s+(\S+)/.exec(String([].concat(process_cmdline || '')[0])) || [])[1] || 'unknown').replace(/^.*models--([^/]+)--([^/]+)\/snapshots\/.*$/, '$1/$2')
+  # Process samples repeat every numeric process_* field on each event; the field
+  # named by _metric/_value is the sample, so only identifying fields are dimensions.
   - id: publish_metrics
-    filter: "_metric !== undefined"
+    filter: "_metric !== undefined && process_set !== undefined"
+    disabled: false
+    conf:
+      metricNameField: _metric
+      valueField: _value
+      dimensions:
+        - host
+        - model
+        - process_set
+        - process_pid
+        - process_cmdline
+        - process_exe_path
+        - telemetry_role
+  - id: publish_metrics
+    filter: "_metric !== undefined && process_set === undefined"
     disabled: false
     conf:
       metricNameField: _metric

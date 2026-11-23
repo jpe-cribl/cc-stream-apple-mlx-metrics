@@ -1,0 +1,41 @@
+[
+  {
+    "sourcetype": "mlx:metrics",
+    "host": "example",
+    "model": "unknown",
+    "process_set": "judge",
+    "process_pid": "4242",
+    "process_cmdline": "python -m judge --port 8081",
+    "process_exe_path": "/usr/bin/python3",
+    "telemetry_role": "edge",
+    "_metric": "judge_process_phys_footprint_bytes",
+    "_value": 1200000000,
+    "index": "llm_metrics"
+  },
+  {
+    "sourcetype": "mlx:metrics",
+    "host": "example",
+    "model": "unknown",
+    "process_set": "judge",
+    "process_pid": "4242",
+    "process_cmdline": "python -m judge --port 8081",
+    "process_exe_path": "/usr/bin/python3",
+    "telemetry_role": "edge",
+    "_metric": "judge_process_resident_memory_bytes",
+    "_value": 900000000,
+    "index": "llm_metrics"
+  },
+  {
+    "sourcetype": "mlx:metrics",
+    "host": "example",
+    "model": "mlx-community/Qwen3-8B-4bit",
+    "process_set": "python",
+    "process_pid": "5151",
+    "process_cmdline": "python -m mlx_lm.server --model /home/example/.cache/huggingface/hub/models--mlx-community--Qwen3-8B-4bit/snapshots/0123abcd --port 8080",
+    "process_exe_path": "/usr/bin/python3",
+    "telemetry_role": "edge",
+    "_metric": "process_phys_footprint_bytes",
+    "_value": 9000000000,
+    "index": "llm_metrics"
+  }
+]
