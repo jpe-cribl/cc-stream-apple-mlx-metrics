@@ -99,7 +99,11 @@ it("aggregates per-process samples into native metrics by process set", () => {
   ]);
 });
 
-it("names process metrics by process and labels the model from --model", () => {
+// Applies the normaliser's process-path eval functions to one event, in
+// pipeline order, the way Cribl does: each runs only when its filter passes.
+function applyProcessEvals(
+  fields: Record<string, unknown>,
+): Record<string, unknown> {
   const pipeline = yamlParse(
     readFileSync(
       join(
@@ -112,54 +116,76 @@ it("names process metrics by process and labels the model from --model", () => {
       "utf8",
     ),
   ) as Pipeline;
-  const processEval = (pipeline.functions ?? []).find(
-    (fn) =>
-      fn.id === "eval" &&
-      fn.filter === "_metric !== undefined && process_set !== undefined",
-  );
-  const add = (processEval?.conf?.add ?? []) as {
-    name: string;
-    value: string;
-  }[];
-  const evaluate = (name: string, fields: Record<string, unknown>) => {
-    const expr = add.find((a) => a.name === name)?.value ?? "";
+  const event: Record<string, unknown> = {
     // Cribl reads an absent field as undefined, so declare every field first.
-    return runInNewContext(expr, {
-      _metric: undefined,
-      process_set: undefined,
-      process_cmdline: undefined,
-      ...fields,
-    });
+    _metric: undefined,
+    process_set: undefined,
+    process_cmdline: undefined,
+    ...fields,
   };
+  for (const fn of pipeline.functions ?? []) {
+    if (fn.id !== "eval" || !fn.filter?.includes("process_set")) continue;
+    const passes = new Function(
+      ...Object.keys(event),
+      `return (${fn.filter});`,
+    )(...Object.values(event));
+    if (!passes) continue;
+    const add = (fn.conf?.add ?? []) as { name: string; value: string }[];
+    for (const { name, value } of add) {
+      event[name] = runInNewContext(value, { ...event });
+    }
+  }
+  return event;
+}
+
+it("names process metrics by process and labels the model from --model", () => {
   const hfCmd =
     "python -m mlx_lm.server --model /home/example/.cache/huggingface/hub/models--mlx-community--Qwen3-8B-4bit/snapshots/0123abcd --port 8080";
 
-  expect(
-    evaluate("_metric", { _metric: "judge_process_phys_footprint_bytes" }),
-  ).toBe("process_phys_footprint_bytes");
-  expect(
-    evaluate("_metric", { _metric: "python_process_phys_footprint_bytes" }),
-  ).toBe("process_phys_footprint_bytes");
-  expect(evaluate("model", { process_cmdline: hfCmd })).toBe(
-    "mlx-community/Qwen3-8B-4bit",
-  );
-  expect(
-    evaluate("model", {
-      process_cmdline:
-        "python -m mlx_lm.server --model mlx-community/Qwen3-8B-4bit --port 8080",
-    }),
-  ).toBe("mlx-community/Qwen3-8B-4bit");
-  expect(
-    evaluate("model", { process_cmdline: "python -m judge --port 8081" }),
-  ).toBe("unknown");
-  expect(
-    evaluate("model", {
-      process_cmdline: [
-        "python -m a --model org1/m1",
-        "python -m b --model org2/m2",
-      ],
-    }),
-  ).toBe("org1/m1");
+  const python = applyProcessEvals({
+    _metric: "python_process_phys_footprint_bytes",
+    process_set: "python",
+    process_cmdline: hfCmd,
+  });
+  expect(python._metric).toBe("process_phys_footprint_bytes");
+  expect(python.model).toBe("mlx-community/Qwen3-8B-4bit");
+
+  const plain = applyProcessEvals({
+    _metric: "python_process_resident_memory_bytes",
+    process_set: "python",
+    process_cmdline:
+      "python -m mlx_lm.server --model mlx-community/Qwen3-8B-4bit --port 8080",
+  });
+  expect(plain._metric).toBe("process_resident_memory_bytes");
+  expect(plain.model).toBe("mlx-community/Qwen3-8B-4bit");
+
+  const noModel = applyProcessEvals({
+    _metric: "python_process_cpu_usage",
+    process_set: "python",
+    process_cmdline: "python -m worker --port 8081",
+  });
+  expect(noModel.model).toBe("unknown");
+
+  const multi = applyProcessEvals({
+    _metric: "python_process_cpu_usage",
+    process_set: "python",
+    process_cmdline: [
+      "python -m a --model org1/m1",
+      "python -m b --model org2/m2",
+    ],
+  });
+  expect(multi.model).toBe("org1/m1");
+});
+
+it("keeps judge per-process samples under their judge_process names", () => {
+  const judge = applyProcessEvals({
+    _metric: "judge_process_phys_footprint_bytes",
+    process_set: "judge",
+    process_cmdline: "python -m judge --port 8081",
+  });
+  // process_agg owns the judge group, so its per-process samples keep names.
+  expect(judge._metric).toBe("judge_process_phys_footprint_bytes");
+  expect(judge.model).toBe("unknown");
 });
 
 it("keeps judge process start-time samples on the process_agg route", () => {
