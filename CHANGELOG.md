@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.9](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/compare/v1.1.8...v1.1.9) (2026-11-23)
+
+
+### Bug Fixes
+
+* **mlx-metrics:** name process metrics by process and label the model ([#67](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/issues/67)) ([7b14c76](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/commit/7b14c76a54aa0c84fee817658972a405e8624d78))
+
 ## [1.1.8](https://github.com/jpe-cribl/cc-stream-apple-mlx-metrics/compare/v1.1.7...v1.1.8) (2026-11-10)
 
 
